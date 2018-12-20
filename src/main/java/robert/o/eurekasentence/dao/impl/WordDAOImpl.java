@@ -16,6 +16,6 @@ public abstract class WordDAOImpl implements WordDAO {
 	public Word getWord() {
 		ServiceInstance instance = loadBalancer.choose(getPartOfSpeech());
 
-   		return (new RestTemplate()).getForObject(instance.getUri(),Word.class);
+   		return instance == null ? null : (new RestTemplate()).getForObject(instance.getUri(), Word.class);
 	}
 }
