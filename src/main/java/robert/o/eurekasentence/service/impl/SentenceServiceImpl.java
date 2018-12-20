@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import robert.o.eurekasentence.dao.AdjectiveClient;
+import robert.o.eurekasentence.dao.ArticleClient;
 import robert.o.eurekasentence.dao.NounClient;
 import robert.o.eurekasentence.service.SentenceService;
 
@@ -17,6 +18,9 @@ public class SentenceServiceImpl implements SentenceService {
     private AdjectiveClient adjectiveClient;
 
     @Autowired
+    private ArticleClient articleClient;
+
+    @Autowired
     private RestTemplate template;
 
     private String getWord(String service) {
@@ -27,7 +31,7 @@ public class SentenceServiceImpl implements SentenceService {
     public String getSentence() {
         return getWord("SUBJECT") + " "
                 + getWord("VERB") + " "
-                + getWord("ARTICLE") + " "
+                + articleClient.getWord() + " "
                 + adjectiveClient.getWord() + " "
                 + nounClient.getWord() + ".";
     }
