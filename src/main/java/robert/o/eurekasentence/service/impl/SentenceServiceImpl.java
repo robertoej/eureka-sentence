@@ -6,6 +6,7 @@ import org.springframework.web.client.RestTemplate;
 import robert.o.eurekasentence.dao.AdjectiveClient;
 import robert.o.eurekasentence.dao.ArticleClient;
 import robert.o.eurekasentence.dao.NounClient;
+import robert.o.eurekasentence.dao.SubjectClient;
 import robert.o.eurekasentence.service.SentenceService;
 
 @Service
@@ -21,6 +22,9 @@ public class SentenceServiceImpl implements SentenceService {
     private ArticleClient articleClient;
 
     @Autowired
+    private SubjectClient subjectClient;
+
+    @Autowired
     private RestTemplate template;
 
     private String getWord(String service) {
@@ -29,7 +33,7 @@ public class SentenceServiceImpl implements SentenceService {
 
     @Override
     public String getSentence() {
-        return getWord("SUBJECT") + " "
+        return subjectClient.getWord() + " "
                 + getWord("VERB") + " "
                 + articleClient.getWord() + " "
                 + adjectiveClient.getWord() + " "
