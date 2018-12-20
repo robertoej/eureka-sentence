@@ -3,6 +3,7 @@ package robert.o.eurekasentence.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import robert.o.eurekasentence.dao.AdjectiveClient;
 import robert.o.eurekasentence.dao.NounClient;
 import robert.o.eurekasentence.service.SentenceService;
 
@@ -11,6 +12,9 @@ public class SentenceServiceImpl implements SentenceService {
 
     @Autowired
     private NounClient nounClient;
+
+    @Autowired
+    private AdjectiveClient adjectiveClient;
 
     @Autowired
     private RestTemplate template;
@@ -24,7 +28,7 @@ public class SentenceServiceImpl implements SentenceService {
         return getWord("SUBJECT") + " "
                 + getWord("VERB") + " "
                 + getWord("ARTICLE") + " "
-                + getWord("ADJECTIVE") + " "
+                + adjectiveClient.getWord() + " "
                 + nounClient.getWord() + ".";
     }
 }
